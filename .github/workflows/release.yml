@@ -1,0 +1,49 @@
+name: Publish release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Test
+        run: node --test tests/app.test.mjs
+
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Build portable archive
+        shell: bash
+        run: |
+          package_root="release/playing-card-selector"
+          archive_name="playing-card-selector-${GITHUB_REF_NAME}.zip"
+          mkdir -p "${package_root}/assets/css" "${package_root}/assets/js"
+          cp index.html LICENSE NOTICE "${package_root}/"
+          cp README-OFFLINE.txt "${package_root}/README.txt"
+          cp assets/css/styles.css "${package_root}/assets/css/"
+          cp assets/js/app.js "${package_root}/assets/js/"
+          cd release
+          zip -r "../${archive_name}" playing-card-selector
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            "playing-card-selector-${GITHUB_REF_NAME}.zip" \
+            --title "Playing Card Selector ${GITHUB_REF_NAME}" \
+            --generate-notes \
+            --verify-tag

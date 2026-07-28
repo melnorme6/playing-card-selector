@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="it" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'none'; connect-src 'none'; font-src 'none'; form-action 'none'; img-src 'self' data:; object-src 'none'; script-src 'self'; style-src 'self'"
+    />
+    <meta
+      name="description"
+      content="A fast, private, dependency-free playing card selection tool."
+    />
+    <title>Selezione carte</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <svg class="icon-sprite" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="sort-ascending-letters" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10v-5c0 -1.38 .62 -2 2 -2s2 .62 2 2v5m0 -3h-4" /><path d="M19 21h-4l4 -7h-4" /><path d="M4 15l3 3l3 -3" /><path d="M7 6v12" /></symbol>
+        <symbol id="sort-descending-letters" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5c0 -1.38 .62 -2 2 -2s2 .62 2 2v5m0 -3h-4" /><path d="M19 10h-4l4 -7h-4" /><path d="M4 15l3 3l3 -3" /><path d="M7 6v12" /></symbol>
+        <symbol id="zoom-in" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 15l6 6" /><path d="M10 7v6" /><path d="M7 10h6" /><path d="M3 10a7 7 0 1 0 14 0a7 7 0 0 0 -14 0" /></symbol>
+        <symbol id="zoom-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 15l6 6" /><path d="M7 10h6" /><path d="M3 10a7 7 0 1 0 14 0a7 7 0 0 0 -14 0" /></symbol>
+        <symbol id="download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></symbol>
+        <symbol id="upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 9l5 -5l5 5" /><path d="M12 4l0 12" /></symbol>
+        <symbol id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454l0 .008" /></symbol>
+        <symbol id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></symbol>
+        <symbol id="play-card-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2" /><path d="M8 6h.01" /><path d="M16 18h.01" /><path d="M12 9v6" /></symbol>
+        <symbol id="play-card-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2" /><path d="M8 6h.01" /><path d="M16 18h.01" /><path d="M10 9h3a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-2a1 1 0 0 0 -1 1v1a1 1 0 0 0 1 1h3" /></symbol>
+        <symbol id="play-card-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2" /><path d="M8 6h.01" /><path d="M16 18h.01" /><path d="M10 9h2.5a1.5 1.5 0 0 1 0 3h-1.5h1.5a1.5 1.5 0 0 1 0 3h-2.5" /></symbol>
+        <symbol id="play-card-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2" /><path d="M8 6h.01" /><path d="M16 18h.01" /><path d="M10 9v2a1 1 0 0 0 1 1h3" /><path d="M14 9v6" /></symbol>
+        <symbol id="diamonds" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.831 20.413l-5.375 -6.91c-.608 -.783 -.608 -2.223 0 -3l5.375 -6.911a1.457 1.457 0 0 1 2.338 0l5.375 6.91c.608 .783 .608 2.223 0 3l-5.375 6.911a1.457 1.457 0 0 1 -2.338 0" /></symbol>
+        <symbol id="clubs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a4 4 0 0 1 3.164 6.447a4 4 0 1 1 -1.164 6.198v1.355l1 4h-6l1 -4l0 -1.355a4 4 0 1 1 -1.164 -6.199a4 4 0 0 1 3.163 -6.446" /></symbol>
+        <symbol id="heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></symbol>
+        <symbol id="spade" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l4.919 4.5c.61 .587 1.177 1.177 1.703 1.771a5.527 5.527 0 0 1 .264 6.979c-1.18 1.56 -3.338 1.92 -4.886 .75v1l1 3h-6l1 -3v-1c-1.54 1.07 -3.735 .772 -4.886 -.75a5.527 5.527 0 0 1 .264 -6.979a30.883 30.883 0 0 1 1.703 -1.771a1541.72 1541.72 0 0 1 4.919 -4.5" /></symbol>
+        <symbol id="play-card-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10a2 2 0 0 1 2 2v10m0 4a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-14" /><path d="M16 18h.01" /><path d="M13.716 13.712l-1.716 2.288l-3 -4l1.29 -1.72" /><path d="M3 3l18 18" /></symbol>
+        <symbol id="brand-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></symbol>
+        <symbol id="joker" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17.5a1.5 1.5 0 0 1 1.5 -1.5h11a1.5 1.5 0 0 1 1.5 1.5a1.5 1.5 0 0 1 -1.5 1.5h-11a1.5 1.5 0 0 1 -1.5 -1.5" /><path d="M12 16q -2.5 -8 -6 -8q -2.5 0 -3 2c2.953 .31 3.308 3.33 4 6" /><path d="M12 16q 2.5 -8 6 -8q 2.5 0 3 2c-2.953 .31 -3.308 3.33 -4 6" /><path d="M9 9.5q 2 -3.5 3 -3.5t 3 3.5" /></symbol>
+      </defs>
+    </svg>
+    <header class="toolbar" aria-label="Controlli applicazione">
+      <div class="toolbar__left">
+        <a class="brand" href="./" aria-label="Playing Card Selector">
+          <span class="brand__mark" aria-hidden="true">
+            <span class="brand__diagonal brand__diagonal--down"></span><span class="red-suit">&hearts;</span><span class="brand__diagonal brand__diagonal--up"></span>
+            <span>&clubs;</span><span class="brand__diagonal brand__diagonal--cross"></span><span>&spades;</span>
+            <span class="brand__diagonal brand__diagonal--up"></span><span class="red-suit">&diams;</span><span class="brand__diagonal brand__diagonal--down"></span>
+          </span>
+          <span class="brand__name" id="brandName">Selezione carte</span>
+        </a>
+
+        <button type="button" id="layoutButton" aria-label="Raggruppamento per seme" title="Raggruppamento per seme">
+          <span class="icon-cluster" id="layoutIcon" aria-hidden="true"></span>
+        </button>
+
+        <button type="button" id="sortOrderButton" aria-label="Ordinamento crescente" title="Ordinamento crescente">
+          <svg aria-hidden="true"><use id="sortIconUse" href="#sort-ascending-letters"></use></svg>
+        </button>
+
+        <div class="zoom-controls" role="group" aria-label="Dimensione carte">
+          <button type="button" id="zoomOutButton" aria-label="Riduci carte" title="Riduci carte">
+            <svg aria-hidden="true"><use href="#zoom-out"></use></svg>
+          </button>
+          <button type="button" id="zoomInButton" aria-label="Ingrandisci carte" title="Ingrandisci carte">
+            <svg aria-hidden="true"><use href="#zoom-in"></use></svg>
+          </button>
+        </div>
+
+      </div>
+
+      <div class="toolbar__center">
+        <fieldset class="filter-group">
+          <legend class="visually-hidden" id="filterLegend">Visualizza</legend>
+          <label>
+            <input class="visually-hidden" type="radio" name="filter" value="all" checked />
+            <span id="filterAllLabel">Tutte</span>
+          </label>
+          <label>
+            <input class="visually-hidden" type="radio" name="filter" value="selected" />
+            <span id="filterSelectedLabel">Possedute</span>
+          </label>
+          <label>
+            <input class="visually-hidden" type="radio" name="filter" value="unselected" />
+            <span id="filterUnselectedLabel">Mancanti</span>
+          </label>
+        </fieldset>
+        <p class="selection-status" aria-live="polite">
+          <svg aria-hidden="true"><use href="#play-card-off"></use></svg>
+          <span id="selectionStatus"></span>
+        </p>
+      </div>
+
+      <div class="toolbar__actions">
+        <button type="button" id="exportButton" aria-label="Esporta JSON" title="Esporta JSON">
+          <svg aria-hidden="true"><use href="#download"></use></svg>
+        </button>
+
+        <button type="button" class="file-button" id="importButton" aria-label="Importa JSON" title="Importa JSON">
+          <svg aria-hidden="true"><use href="#upload"></use></svg>
+        </button>
+        <input class="visually-hidden" type="file" id="importFile" accept="application/json,.json" />
+
+        <button
+          type="button"
+          id="themeButton"
+          class="icon-button"
+          aria-label="Attiva tema scuro"
+          title="Attiva tema scuro"
+        >
+          <span aria-hidden="true">🌙</span>
+        </button>
+
+        <details class="language-menu">
+          <summary aria-label="Lingua" title="Lingua">
+            <span class="language-flag" id="activeLanguageFlag" aria-hidden="true">🇮🇹</span>
+          </summary>
+          <ul class="language-menu__list" aria-label="Lingua"></ul>
+        </details>
+      </div>
+    </header>
+
+    <main>
+      <noscript>Questa applicazione richiede JavaScript.</noscript>
+      <div id="deckContainer" class="deck" aria-label="Mazzo di carte"></div>
+    </main>
+
+    <footer class="site-footer">
+      <span id="footerMadeWith">Realizzato con</span>
+      <span class="footer-heart" id="footerHeart" aria-label="amore">♥</span>
+      <a
+        id="githubLink"
+        href="https://github.com/melnorme6/playing-card-selector"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Apri il progetto su GitHub"
+        title="Apri il progetto su GitHub"
+      >
+        <svg aria-hidden="true"><use href="#brand-github"></use></svg>
+      </a>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

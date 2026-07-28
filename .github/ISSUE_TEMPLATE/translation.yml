@@ -1,0 +1,44 @@
+name: Translation problem
+description: Report an incorrect, unclear, or missing interface translation
+title: "[Translation]: "
+labels:
+  - translation
+body:
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      options:
+        - English
+        - Italian
+        - Brazilian Portuguese
+        - Latin American Spanish
+        - German
+        - French
+        - Russian
+        - Turkish
+        - Simplified Chinese
+        - Traditional Chinese
+        - Japanese
+        - Korean
+    validations:
+      required: true
+  - type: input
+    id: current-text
+    attributes:
+      label: Current text
+    validations:
+      required: true
+  - type: input
+    id: suggested-text
+    attributes:
+      label: Suggested text
+    validations:
+      required: true
+  - type: textarea
+    id: explanation
+    attributes:
+      label: Explanation
+      description: Explain the context, grammar, or terminology behind the correction.
+    validations:
+      required: true
