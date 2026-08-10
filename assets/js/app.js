@@ -43,6 +43,9 @@ const I18N = {
     filterAll: "Tutte",
     filterSelected: "Possedute",
     filterUnselected: "Mancanti",
+    filterAllCompact: "Tutte",
+    filterSelectedCompact: "Pos.",
+    filterUnselectedCompact: "Manc.",
     exportButton: "Esporta JSON",
     importLabel: "Importa JSON",
     languageLabel: "Lingua",
@@ -113,6 +116,9 @@ const I18N = {
     filterAll: "All",
     filterSelected: "Owned",
     filterUnselected: "Missing",
+    filterAllCompact: "All",
+    filterSelectedCompact: "Own",
+    filterUnselectedCompact: "Miss",
     exportButton: "Export JSON",
     importLabel: "Import JSON",
     languageLabel: "Language",
@@ -234,6 +240,9 @@ Object.assign(I18N, {
 });
 
 Object.assign(I18N["pt-BR"], {
+  filterAllCompact: "Todas",
+  filterSelectedCompact: "Poss.",
+  filterUnselectedCompact: "Falt.",
   values: {
     A: "Ás", 2: "Dois", 3: "Três", 4: "Quatro", 5: "Cinco", 6: "Seis", 7: "Sete",
     8: "Oito", 9: "Nove", 10: "Dez", J: "Valete", Q: "Dama", K: "Rei",
@@ -245,6 +254,9 @@ Object.assign(I18N["pt-BR"], {
   zoomIn: "Aumentar cartas",
 });
 Object.assign(I18N["es-419"], {
+  filterAllCompact: "Todas",
+  filterSelectedCompact: "Obt.",
+  filterUnselectedCompact: "Falt.",
   values: {
     A: "As", 2: "Dos", 3: "Tres", 4: "Cuatro", 5: "Cinco", 6: "Seis", 7: "Siete",
     8: "Ocho", 9: "Nueve", 10: "Diez", J: "Jota", Q: "Reina", K: "Rey",
@@ -256,6 +268,9 @@ Object.assign(I18N["es-419"], {
   zoomIn: "Ampliar cartas",
 });
 Object.assign(I18N.de, {
+  filterAllCompact: "Alle",
+  filterSelectedCompact: "Eigen",
+  filterUnselectedCompact: "Fehlt",
   cardValues: { A: "Ass", J: "Bube", Q: "Dame", K: "König" },
   footerLove: "Liebe",
   cardName: (value, suit) => `${suit} ${value}`,
@@ -265,6 +280,9 @@ Object.assign(I18N.de, {
   zoomIn: "Karten vergrößern",
 });
 Object.assign(I18N.fr, {
+  filterAllCompact: "Tout",
+  filterSelectedCompact: "Poss.",
+  filterUnselectedCompact: "Manq.",
   cardValues: { A: "As", J: "Valet", Q: "Dame", K: "Roi" },
   footerLove: "amour",
   cardName: (value, suit) => `${value} de ${suit}`,
@@ -274,6 +292,9 @@ Object.assign(I18N.fr, {
   zoomIn: "Agrandir les cartes",
 });
 Object.assign(I18N.ru, {
+  filterAllCompact: "Все",
+  filterSelectedCompact: "Есть",
+  filterUnselectedCompact: "Нет",
   cardValues: { A: "Туз", J: "Валет", Q: "Дама", K: "Король" },
   footerLove: "любовью",
   cardName: (value, suit) => `${value}, ${suit}`,
@@ -283,6 +304,9 @@ Object.assign(I18N.ru, {
   zoomIn: "Увеличить карты",
 });
 Object.assign(I18N.tr, {
+  filterAllCompact: "Tümü",
+  filterSelectedCompact: "Var",
+  filterUnselectedCompact: "Eksik",
   layoutSuitTooltip: "Türe göre gruplandı. Değere göre gruplamaya geç",
   layoutValueTooltip: "Değere göre gruplandı. Türe göre gruplamaya geç",
   cardValues: { A: "As", J: "Vale", Q: "Kız", K: "Papaz" },
@@ -294,6 +318,9 @@ Object.assign(I18N.tr, {
   zoomIn: "Kartları büyüt",
 });
 Object.assign(I18N["zh-Hans"], {
+  filterAllCompact: "全部",
+  filterSelectedCompact: "已有",
+  filterUnselectedCompact: "缺少",
   joker: "Joker",
   jokerRed: "红色 Joker",
   jokerBlack: "黑色 Joker",
@@ -306,6 +333,9 @@ Object.assign(I18N["zh-Hans"], {
   zoomIn: "放大卡牌",
 });
 Object.assign(I18N["zh-Hant"], {
+  filterAllCompact: "全部",
+  filterSelectedCompact: "已有",
+  filterUnselectedCompact: "缺少",
   cardValues: { A: "A", J: "J", Q: "Q", K: "K" },
   footerLove: "愛",
   cardName: (value, suit) => `${suit}${value}`,
@@ -315,6 +345,9 @@ Object.assign(I18N["zh-Hant"], {
   zoomIn: "放大卡牌",
 });
 Object.assign(I18N.ja, {
+  filterAllCompact: "全て",
+  filterSelectedCompact: "所持",
+  filterUnselectedCompact: "不足",
   cardValues: { A: "エース", J: "ジャック", Q: "クイーン", K: "キング" },
   footerLove: "愛",
   cardName: (value, suit) => `${suit}の${value}`,
@@ -324,6 +357,9 @@ Object.assign(I18N.ja, {
   zoomIn: "カードを大きくする",
 });
 Object.assign(I18N.ko, {
+  filterAllCompact: "전체",
+  filterSelectedCompact: "보유",
+  filterUnselectedCompact: "미보유",
   cardValues: { A: "에이스", J: "잭", Q: "퀸", K: "킹" },
   footerLove: "사랑",
   cardName: (value, suit) => `${suit} ${value}`,
@@ -539,11 +575,23 @@ function updateInterfaceText() {
     filterAllLabel: text.filterAll,
     filterSelectedLabel: text.filterSelected,
     filterUnselectedLabel: text.filterUnselected,
+    filterAllCompactLabel: text.filterAllCompact,
+    filterSelectedCompactLabel: text.filterSelectedCompact,
+    filterUnselectedCompactLabel: text.filterUnselectedCompact,
     footerMadeWith: text.footerMadeWith,
   };
 
   for (const [id, value] of Object.entries(labels)) {
     document.querySelector(`#${id}`).textContent = value;
+  }
+
+  const filterLabels = {
+    all: text.filterAll,
+    selected: text.filterSelected,
+    unselected: text.filterUnselected,
+  };
+  for (const radio of document.querySelectorAll('input[name="filter"]')) {
+    radio.setAttribute("aria-label", filterLabels[radio.value]);
   }
 
   updateLanguageButtons();

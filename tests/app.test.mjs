@@ -73,7 +73,8 @@ test("every locale has the complete interface translation contract", () => {
   const { localeAudit } = loadDataModel();
   const requiredStrings = [
     "pageTitle", "brandName", "toolbarLabel", "layoutSuitTooltip", "layoutValueTooltip",
-    "filterLegend", "filterAll", "filterSelected", "filterUnselected", "exportButton",
+    "filterLegend", "filterAll", "filterSelected", "filterUnselected", "filterAllCompact",
+    "filterSelectedCompact", "filterUnselectedCompact", "exportButton",
     "importLabel", "languageLabel", "footerMadeWith", "footerLove", "deckLabel", "joker",
     "jokerRed", "jokerBlack", "sortAscendingTooltip", "sortDescendingTooltip",
     "sortAscendingButtonTooltip", "sortDescendingButtonTooltip", "cardSizeLabel", "zoomOut",
@@ -201,6 +202,20 @@ test("card editing lock is local, persistent, and keyboard-safe", () => {
 test("footer exposes the current application version and centered project link", () => {
   assert.match(htmlSource, /class="site-footer__center"/);
   assert.match(htmlSource, /class="site-footer__version">v1\.1\.0/);
+});
+
+test("compact toolbar keeps clear localized filters beside zoom controls", () => {
+  assert.match(htmlSource, /id="filterAllCompactLabel"/);
+  assert.match(htmlSource, /id="filterSelectedCompactLabel"/);
+  assert.match(htmlSource, /id="filterUnselectedCompactLabel"/);
+  assert.match(
+    cssSource,
+    /@media \(max-width: 42rem\)[\s\S]*?"layout sort zoom filters"/,
+  );
+  assert.match(
+    cssSource,
+    /@media \(max-width: 42rem\)[\s\S]*?\.selection-status\s*\{[^}]*position:\s*absolute;[^}]*right:\s*0\.75rem;/,
+  );
 });
 
 test("public documentation covers online, offline, privacy, and AI-assisted translations", () => {

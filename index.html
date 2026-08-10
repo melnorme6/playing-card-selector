@@ -76,15 +76,24 @@
           <legend class="visually-hidden" id="filterLegend">Visualizza</legend>
           <label>
             <input class="visually-hidden" type="radio" name="filter" value="all" checked />
-            <span id="filterAllLabel">Tutte</span>
+            <span class="filter-label">
+              <span class="filter-label__full" id="filterAllLabel">Tutte</span>
+              <span class="filter-label__compact" id="filterAllCompactLabel">Tutte</span>
+            </span>
           </label>
           <label>
             <input class="visually-hidden" type="radio" name="filter" value="selected" />
-            <span id="filterSelectedLabel">Possedute</span>
+            <span class="filter-label">
+              <span class="filter-label__full" id="filterSelectedLabel">Possedute</span>
+              <span class="filter-label__compact" id="filterSelectedCompactLabel">Pos.</span>
+            </span>
           </label>
           <label>
             <input class="visually-hidden" type="radio" name="filter" value="unselected" />
-            <span id="filterUnselectedLabel">Mancanti</span>
+            <span class="filter-label">
+              <span class="filter-label__full" id="filterUnselectedLabel">Mancanti</span>
+              <span class="filter-label__compact" id="filterUnselectedCompactLabel">Manc.</span>
+            </span>
           </label>
         </fieldset>
         <p class="selection-status" aria-live="polite">

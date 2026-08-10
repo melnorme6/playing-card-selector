@@ -14,6 +14,8 @@ The format is based on Keep a Changelog, and the project follows Semantic Versio
 ### Changed
 
 - Centered the collection filters and counter within the application toolbar.
+- Reorganized the narrow-screen toolbar with the counter beside the title and concise, localized
+  filters beside the card-size controls.
 - Made value sequences wrap responsively instead of requiring horizontal scrolling.
 - Reserved visual space around card rows so selected, hovered, and keyboard-focused cards are not
   clipped.
