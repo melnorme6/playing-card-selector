@@ -78,7 +78,7 @@ test("every locale has the complete interface translation contract", () => {
     "jokerRed", "jokerBlack", "sortAscendingTooltip", "sortDescendingTooltip",
     "sortAscendingButtonTooltip", "sortDescendingButtonTooltip", "cardSizeLabel", "zoomOut",
     "zoomIn", "themeDark", "themeLight", "exportSuccess", "importSuccess", "importError",
-    "storageError",
+    "storageError", "lockCards", "unlockCards",
   ];
   const requiredFunctions = [
     "selectionSummary", "groupCount", "cardName", "selectCard", "deselectCard",
@@ -169,10 +169,10 @@ test("card zoom controls use the local Tabler icons", () => {
   assert.match(htmlSource, /<button[^>]+id="zoomInButton"/);
 });
 
-test("responsive grids contain overflow within their card groups", () => {
+test("responsive grids wrap card sequences within their groups", () => {
   assert.match(
     cssSource,
-    /\.deck\[data-layout="suit"\] \.card-row\s*\{[^}]*overflow-x:\s*auto;/s,
+    /\.deck\[data-layout="suit"\] \.card-row\s*\{[^}]*repeat\(auto-fill,\s*var\(--card-width\)\)/s,
   );
   assert.match(
     cssSource,
@@ -187,6 +187,20 @@ test("responsive grids contain overflow within their card groups", () => {
     cssSource,
     /\.deck\[data-layout="value"\] \.card-group--jokers\s*\{[^}]*grid-column:/s,
   );
+});
+
+test("card editing lock is local, persistent, and keyboard-safe", () => {
+  assert.match(htmlSource, /<symbol id="lock"/);
+  assert.match(htmlSource, /<symbol id="lock-open-2"/);
+  assert.match(htmlSource, /<button[\s\S]*?id="interactionLockButton"/);
+  assert.match(appSource, /playingCardSelector\.interactionLocked/);
+  assert.match(appSource, /card\.disabled = state\.interactionLocked/);
+  assert.match(cssSource, /\.card:disabled\s*\{[^}]*opacity:\s*1;/s);
+});
+
+test("footer exposes the current application version and centered project link", () => {
+  assert.match(htmlSource, /class="site-footer__center"/);
+  assert.match(htmlSource, /class="site-footer__version">v1\.1\.0/);
 });
 
 test("public documentation covers online, offline, privacy, and AI-assisted translations", () => {

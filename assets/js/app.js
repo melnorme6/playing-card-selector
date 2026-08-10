@@ -4,6 +4,7 @@ const STORAGE_KEYS = Object.freeze({
   selectedCards: "playingCardSelector.selectedCards",
   language: "playingCardSelector.language",
   theme: "playingCardSelector.theme",
+  interactionLocked: "playingCardSelector.interactionLocked",
 });
 
 const LEGACY_STORAGE_KEYS = Object.freeze({
@@ -95,6 +96,8 @@ const I18N = {
     deselectCard: (card) => `Deseleziona ${card}`,
     themeDark: "Attiva tema scuro",
     themeLight: "Attiva tema chiaro",
+    lockCards: "Blocca modifica carte",
+    unlockCards: "Sblocca modifica carte",
     exportSuccess: "Configurazione esportata.",
     importSuccess: "Configurazione importata.",
     importError: "Il file JSON non contiene una configurazione valida.",
@@ -163,6 +166,8 @@ const I18N = {
     deselectCard: (card) => `Deselect ${card}`,
     themeDark: "Enable dark theme",
     themeLight: "Enable light theme",
+    lockCards: "Lock card editing",
+    unlockCards: "Unlock card editing",
     exportSuccess: "Configuration exported.",
     importSuccess: "Configuration imported.",
     importError: "The JSON file does not contain a valid configuration.",
@@ -363,6 +368,7 @@ const elements = {
   languageMenuList: document.querySelector(".language-menu__list"),
   activeLanguageFlag: document.querySelector("#activeLanguageFlag"),
   themeButton: document.querySelector("#themeButton"),
+  interactionLockButton: document.querySelector("#interactionLockButton"),
   exportButton: document.querySelector("#exportButton"),
   importButton: document.querySelector("#importButton"),
   importFile: document.querySelector("#importFile"),
@@ -376,6 +382,7 @@ const state = {
   selectedCards: loadSelectedCards(),
   language: loadLanguage(),
   theme: loadTheme(),
+  interactionLocked: loadInteractionLocked(),
   filter: "all",
   layout: "suit",
   sortOrder: "asc",
@@ -506,6 +513,10 @@ function loadTheme() {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
+function loadInteractionLocked() {
+  return getStorageItem(STORAGE_KEYS.interactionLocked) === "true";
+}
+
 function translate() {
   return I18N[state.language];
 }
@@ -552,6 +563,7 @@ function updateInterfaceText() {
   updateSortButton();
   updateZoomButtons();
   updateThemeButton();
+  updateInteractionLock();
   updateSelectionStatus();
 }
 
@@ -568,6 +580,21 @@ function updateThemeButton() {
   elements.themeButton.setAttribute("aria-label", label);
   elements.themeButton.title = label;
   elements.themeButton.replaceChildren(createIcon(isLight ? "moon" : "sun"));
+}
+
+function updateInteractionLock() {
+  const text = translate();
+  const label = state.interactionLocked ? text.unlockCards : text.lockCards;
+  elements.interactionLockButton.setAttribute("aria-label", label);
+  elements.interactionLockButton.setAttribute("aria-pressed", String(state.interactionLocked));
+  elements.interactionLockButton.title = label;
+  elements.interactionLockButton.replaceChildren(
+    createIcon(state.interactionLocked ? "lock" : "lock-open-2"),
+  );
+  elements.deckContainer.dataset.locked = String(state.interactionLocked);
+  for (const card of elements.deckContainer.querySelectorAll(".card")) {
+    card.disabled = state.interactionLocked;
+  }
 }
 
 function updateLanguageButtons() {
@@ -681,6 +708,7 @@ function createCard(cardId, value, symbol, color, isJoker = false) {
   card.dataset.cardId = cardId;
   card.dataset.selected = state.selectedCards[cardId] ? "true" : "false";
   card.setAttribute("aria-pressed", card.dataset.selected);
+  card.disabled = state.interactionLocked;
 
   const valueElement = document.createElement("span");
   valueElement.className = isJoker ? "card__joker" : "card__value";
@@ -938,6 +966,18 @@ function bindEvents() {
     state.theme = state.theme === "light" ? "dark" : "light";
     const saved = setStorageItem(STORAGE_KEYS.theme, state.theme);
     applyTheme();
+    if (!saved) {
+      showToast(translate().storageError);
+    }
+  });
+
+  elements.interactionLockButton.addEventListener("click", () => {
+    state.interactionLocked = !state.interactionLocked;
+    const saved = setStorageItem(
+      STORAGE_KEYS.interactionLocked,
+      String(state.interactionLocked),
+    );
+    updateInteractionLock();
     if (!saved) {
       showToast(translate().storageError);
     }

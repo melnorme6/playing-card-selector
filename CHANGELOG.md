@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and the project follows Semantic Versioning.
 
+## [1.1.0] - 2026-08-10
+
+### Added
+
+- Added a persistent card-editing lock with local Tabler lock and unlock icons.
+- Displayed the application version in a redesigned footer.
+
+### Changed
+
+- Centered the collection filters and counter within the application toolbar.
+- Made value sequences wrap responsively instead of requiring horizontal scrolling.
+- Reserved visual space around card rows so selected, hovered, and keyboard-focused cards are not
+  clipped.
+- Refined the footer with a centered GitHub link and a clearer project credit.
+
 ## [1.0.0] - 2026-07-28
 
 ### Added

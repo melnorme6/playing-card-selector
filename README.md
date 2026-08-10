@@ -12,11 +12,12 @@ filter the deck, and keep a portable backup of your collection.
 - Tracks a complete deck: 52 standard cards plus two jokers.
 - Groups cards by suit or value, with ascending and descending order.
 - Filters owned and missing cards.
+- Locks card editing to prevent accidental collection changes.
 - Offers three card sizes with accessible zoom controls.
-- Stores the collection, language, and theme locally in the browser.
+- Stores the collection, language, theme, and editing-lock preference locally in the browser.
 - Imports and exports versioned, human-readable JSON backups.
 - Includes light and dark themes.
-- Supports keyboard navigation and responsive layouts.
+- Supports keyboard navigation and responsive card wrapping on narrow screens.
 - Uses no framework, account, analytics, tracking, external font, CDN, or third-party script.
 
 ## Use online
@@ -47,9 +48,9 @@ does not send selected cards, imported files, language, or theme settings to Git
 party. A restrictive Content Security Policy also prevents the application JavaScript from making
 network connections.
 
-The collection, language, and theme are stored using `localStorage`. Use **Export JSON** to create a
-portable backup and **Import JSON** to restore it. Legacy card-only exports remain supported and
-preserve the current language and theme.
+The collection, language, theme, and card-editing lock are stored using `localStorage`. Use
+**Export JSON** to create a portable backup and **Import JSON** to restore it. Legacy card-only
+exports remain supported and preserve the current language and theme.
 
 An exported backup contains only its schema version, selected card identifiers, language, and
 theme. It contains no account identifier, email address, browser identifier, or analytics data.
